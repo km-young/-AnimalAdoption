@@ -1,0 +1,22 @@
+{
+  "TodoList": [
+    {
+      "id": 1,
+      "roomId": "1",
+      "date":"2023-03-31",
+      "userName": "관리자",
+      "title": "UI만들기",
+      "content":"오늘 홈 UI 만들겠습니다.",
+      "isDone": false,
+      "isEdit": false,
+      "comment": [
+        {
+          "id": 1,
+          "userName": "팀원1",
+          "commentText": "잘봤어요",
+          "isEdit": false
+        }
+      ]
+    }
+  ]
+}

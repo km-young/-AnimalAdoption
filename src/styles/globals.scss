@@ -1,0 +1,22 @@
+$mobile-width: 767px; // 모바일 화면 기준 가로 길이
+$desktop-width: 768px; // 데스크탑 화면 기준 가로 길이
+
+/* 모바일 */
+@media only screen and (max-width: $mobile-width) {
+  body {
+    background-color: red;
+    font-size: 15px;
+  }
+
+}
+
+/* 데스크탑 */
+@media only screen and (min-width: $desktop-width) {
+  /* 데스크탑에서 적용할 스타일 */
+  body {
+    background-color: blue;
+    font-size: 18px;
+    color: white;
+  }
+ 
+}
