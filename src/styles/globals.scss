@@ -1,10 +1,20 @@
-$mobile-width: 767px; // 모바일 화면 기준 가로 길이
-$desktop-width: 768px; // 데스크탑 화면 기준 가로 길이
+@import './$variable.scss';
+
+html,
+body {
+  margin: 0 auto;
+  padding: 0 auto;
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
 
 /* 모바일 */
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (min-width: $mobile-width) {
   body {
-    background-color: red;
     font-size: 15px;
   }
 
@@ -18,5 +28,4 @@ $desktop-width: 768px; // 데스크탑 화면 기준 가로 길이
     font-size: 18px;
     color: white;
   }
- 
 }

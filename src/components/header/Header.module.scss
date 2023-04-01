@@ -1,0 +1,19 @@
+.container {
+  background-color: white;
+  width: 100%;
+  min-width: 21em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+
+  h1 {
+    text-align: left;
+  }
+
+  .icon {
+    font-size: 25px;
+    cursor: pointer;
+  }
+}
