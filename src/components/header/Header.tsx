@@ -1,16 +1,24 @@
 import React from 'react';
 import style from './Header.module.scss';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import {RxHamburgerMenu} from 'react-icons/rx';
 import Nav from './Nav';
+import {useAppSelector, useAppDispatch} from '../../hooks/reduxHooks';
+import {isNavModal} from '../../redux/slice/navModalSlice';
+
 const Header = () => {
+  const dispatch = useAppDispatch();
+
   return (
-    <>
+    <div>
+      <Nav />
       <div className={style.container}>
         <h1>펫샵대신</h1>
-        <RxHamburgerMenu className={style.icon} />
+        <RxHamburgerMenu
+          className={style.icon}
+          onClick={() => dispatch(isNavModal())}
+        />
       </div>
-      <Nav />
-    </>
+    </div>
   );
 };
 

@@ -4,6 +4,8 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import { ReactQueryDevtools} from "react-query/devtools"
 import 'react-calendar/dist/Calendar.css'
 import Header from '@/components/header/Header';
+import {Provider} from 'react-redux';
+import {store} from '../redux/store/index';
 
 export default function App({Component, pageProps}: AppProps) {
   const queryClient = new QueryClient({
@@ -18,8 +20,10 @@ export default function App({Component, pageProps}: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <Header />
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Header />
+        <Component {...pageProps} />
+      </Provider>
     </QueryClientProvider>
   );
 }

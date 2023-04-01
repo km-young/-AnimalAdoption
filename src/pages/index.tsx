@@ -1,8 +1,12 @@
+import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useQuery } from 'react-query'
 import  {getAnimals, getSido}  from './api/getAPI'
+import {plusCounter, minusCounter} from '../redux/slice/counterSlice';
+import {setSido} from '@/redux/slice/apiSidoSlice';
 
 
 export default function Home() {
+  const dispatch = useAppDispatch();
 
   const {
     data: sido,
@@ -11,7 +15,11 @@ export default function Home() {
   } = useQuery({
     queryKey: ['sido'],
     queryFn: () => getSido(),
-    onSuccess: (data) => console.log('data: ', data.response.body.items.item),
+    onSuccess: (data) => {
+      dispatch(setSido(data.response.body.items.item));
+    },
+    cacheTime: 1000 * 60 * 60 * 24 * 365, // 1년
+    staleTime: 1000 * 60 * 60 * 24 * 30, // 1달
   });
 
   const { data: animals } = useQuery({
@@ -34,6 +42,8 @@ export default function Home() {
   return (
     <div>
       테스트를 시작합니다.
+      <button onClick={() => dispatch(plusCounter(1))}>+1</button>
+      <button onClick={() => dispatch(minusCounter(1))}>-1</button>
     </div>
   );
 }
