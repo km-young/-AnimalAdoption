@@ -1,26 +1,25 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 
-interface SidoState {
+interface SidoAPIState {
   items: any[];
 }
 
-const initialState: SidoState = {
+const initialState: SidoAPIState = {
   items: [],
 };
 
-const apiSlice = createSlice({
-  name: 'api',
+const apiSidoSlice = createSlice({
+  name: 'sidoAPI',
   initialState,
   reducers: {
-    setSido: (state, action) => {
+    setSidoAPI: (state, action) => {
       state.items = action.payload;
-      console.log( 'state.items: ' ,state.items);
-      
+      console.log('state.items: ', state.items);
     },
   },
 });
 
-export const {setSido} = apiSlice.actions;
+export const {setSidoAPI} = apiSidoSlice.actions;
 
-export default apiSlice.reducer;
+export default apiSidoSlice.reducer;

@@ -7,4 +7,10 @@ const nextConfig = {
   },
 };
 
+module.exports = {
+  images: {
+    domains: ['www.animal.go.kr'],
+  },
+};
+
 module.exports = nextConfig;
