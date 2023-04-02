@@ -5,11 +5,15 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')], // 2. sassOptions 옵션 추가
   },
-};
-
-module.exports = {
   images: {
-    domains: ['www.animal.go.kr'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'www.animal.go.kr',
+        port: '',
+        pathname: '/files/shelter/**',
+      },
+    ],
   },
 };
 

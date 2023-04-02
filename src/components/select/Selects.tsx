@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import style from './Nav.module.scss';
+import style from './Selects.module.scss';
 import {useAppSelector, useAppDispatch} from '../../hooks/reduxHooks';
 import {setNeuterYn} from '@/redux/slice/neuterYnSlice';
 import { setSido } from '@/redux/slice/sidoSlice';
 import { setKind } from '@/redux/slice/kindSlice';
-const Nav = () => {
+const Selects = () => {
   const dispatch = useAppDispatch();
   const isNav = useAppSelector((state) => state.navModal.isOpen);
   const sidoAPI = useAppSelector((state) => state.sidoAPI.items);
@@ -48,7 +48,6 @@ const Nav = () => {
   return (
     <div
       className={style.container}
-      style={isNav ? {display: 'flex'} : {display: 'none'}}
     >
       <div className={style.items}>
         <h3>지역</h3>
@@ -77,7 +76,7 @@ const Nav = () => {
             className={style.select}
             name='sido'
             id='sido-select'
-            style={{width: '35%'}}
+            // style={{width: '35%'}}
             onChange={handleKindChange}
           >
             <option value=''>전체</option>
@@ -95,7 +94,7 @@ const Nav = () => {
             className={style.select}
             name='neuterYn'
             id='neuterYn-select'
-            style={{width: '35%'}}
+            // style={{width: '35%'}}
             onChange={handleNeuterYnChange}
           >
             <option value=''>전체</option>
@@ -108,4 +107,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Selects;

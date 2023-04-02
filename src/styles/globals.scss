@@ -4,7 +4,7 @@ html,
 body {
   margin: 0 auto;
   padding: 0 auto;
-
+  background-color: rgb(250, 245, 239);
   * {
     margin: 0;
     padding: 0;
@@ -24,8 +24,6 @@ body {
 @media only screen and (min-width: $desktop-width) {
   /* 데스크탑에서 적용할 스타일 */
   body {
-    background-color: blue;
     font-size: 18px;
-    color: white;
   }
 }

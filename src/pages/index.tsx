@@ -1,20 +1,23 @@
 import {useAppDispatch, useAppSelector} from '@/hooks/reduxHooks';
-import {useQuery, useQueryClient} from 'react-query';
-import {getAnimals, getSido} from './api/getAPI';
-import {plusCounter, minusCounter} from '../redux/slice/counterSlice';
+import {useQuery} from 'react-query';
+import {getAnimals, getSido} from '../api/getAPI';
 import {setSidoAPI} from '@/redux/slice/apiSidoSlice';
 import style from './index.module.scss';
 import Image from 'next/image';
 import {Animals} from '../../type';
-import {useEffect} from 'preact/hooks';
+import {v4 as uuidv4} from 'uuid';
+import Selects from '@/components/select/Selects';
+import ScrollTop from '@/components/scrollTop/ScrollTop';
+import { useState } from 'react';
+import Like from '@/components/like/Like';
 export default function Home() {
   const dispatch = useAppDispatch();
-
   const selectSido = useAppSelector((state) => state.sido);
   const selectKind = useAppSelector((state) => state.kind);
   const selectNeuterYn = useAppSelector((state) => state.neuterYn);
 
-  const queryClient = useQueryClient();
+
+
   const {
     data: sido,
     isLoading,
@@ -30,9 +33,77 @@ export default function Home() {
   const {data: animals} = useQuery({
     queryKey: ['animals', selectSido, selectKind, selectNeuterYn],
     queryFn: () => getAnimals(selectSido, selectKind, selectNeuterYn),
+
     cacheTime: 1000 * 60 * 60 * 24, // 1일
     staleTime: 1000 * 60 * 60 * 24, // 1일
   });
+
+  const sortedData = animals?.response?.body?.items?.item?.sort(
+    (a: Animals, b: Animals) => {
+      const aDate = Number(a.noticeEdt);
+      const bDate = Number(b.noticeEdt);
+      return aDate - bDate;
+    }
+  );
+
+  const removeKind = (str: string) => {
+    const animalKinds = ['[개] ', '[고양이] ', '[기타축종]'];
+    for (const animalKind of animalKinds) {
+      str = str.replace(animalKind, '');
+    }
+    return str;
+  };
+
+  const removeParentheses = (str: string) => {
+    const animalIsAge = str.includes('미만');
+    if (animalIsAge) {
+      // 미만이라는 단어가 있으면
+      return '60일 미만';
+    } else {
+      return str.replace(/[()]/g, '');
+    }
+  };
+
+  const getGenderString = (gender: string) => {
+    return gender === 'M' ? '남' : '여';
+  };
+
+  const neuterText = (neuter: string) => {
+    switch (neuter) {
+      case 'Y':
+        return 'O';
+      case 'N':
+        return 'X';
+      default:
+        return '확인되지 않음';
+    }
+  };
+
+  const getDaysLeft = (date: string) => {
+    // 입력받은 날짜 문자열을 Date 객체로 변환합니다.
+    const targetDate = new Date(
+      parseInt(date.slice(0, 4)),
+      parseInt(date.slice(4, 6)) - 1,
+      parseInt(date.slice(6, 8))
+    );
+
+    // 현재 시각을 가져옵니다.
+    const now = new Date();
+
+    // 남은 시간을 계산합니다.
+    const diff = targetDate.getTime() - now.getTime();
+    const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    return daysLeft;
+  };
+
+  const truncate = (str: string): string => {
+    if (str.length > 13) {
+      return str.substring(0, 13) + '...';
+    } else {
+      return str;
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -44,42 +115,67 @@ export default function Home() {
 
   return (
     <div className={style.container}>
-      {animals?.response?.body?.items?.item?.map((item: Animals) => {
+      <Selects />
+      {sortedData?.map((item: Animals) => {
+        const uuid = uuidv4();
+        const daysLeft = getDaysLeft(item.noticeEdt);
+
+        const daysLeftStyle = {
+          backgroundColor:
+            daysLeft < 0 ? '#db4e16' : daysLeft < 10 ? '#ff9971' : '#50b77d',
+          padding: '0.3rem 0.5rem',
+          borderRadius: '30px',
+          color: '#fff',
+          display: 'inline',
+        };
+
         return (
-          <>
-            <div className={style.item_box}>
-              <img
-                src={item.popfile}
-                alt={item.kindCd}
-                width={150}
-                height={150}
-              />
-              <div>
+          <div className={style.item_box} key={uuid}>
+            <Image
+              src={item.popfile}
+              alt={item.kindCd}
+              width={150}
+              height={150}
+            />
+
+            <div className={style.content}>
+              <Like item={item} />
+              <div style={daysLeftStyle}>
+                <strong>
+                  {daysLeft > 0 ? `공고 마감 ${daysLeft}일 전` : `공고 마감`}
+                </strong>
+              </div>
+              <div className={style.position}>
+                <div className={style.flex}>
+                  <h4>품종:</h4>
+                  <p>{removeKind(item.kindCd)}</p>
+                </div>
                 <div className={style.flex}>
                   <h4>나이:</h4>
-                  <p>{item.age}</p>
+                  <p>{removeParentheses(item.age)}</p>
                 </div>
                 <div className={style.flex}>
                   <h4>몸무게:</h4>
-                  <p>{item.weight}</p>
-                </div>
-                <div className={style.flex}>
-                  <h4>견종:</h4>
-                  <p>{item.kindCd}</p>
+                  <p>{removeParentheses(item.weight)}</p>
                 </div>
                 <div className={style.flex}>
                   <h4>성별:</h4>
-                  <p>{item.sexCd}</p>
+                  <p>{getGenderString(item.sexCd)}</p>
                 </div>
                 <div className={style.flex}>
                   <h4>중성화:</h4>
-                  <p>{item.neuterYn}</p>
+                  <p>{neuterText(item.neuterYn)}</p>
+                </div>
+                <div className={style.flex}>
+                  <h4>발견장소:</h4>
+                  <p>{truncate(item.happenPlace)}</p>
                 </div>
               </div>
             </div>
-          </>
+          </div>
         );
       })}
+      <ScrollTop />
     </div>
   );
 }

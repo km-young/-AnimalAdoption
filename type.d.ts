@@ -1,4 +1,5 @@
 export interface Animals {
+  id: string | null;
   age: string;
   careAddr: string;
   careNm: string;
@@ -21,4 +22,8 @@ export interface Animals {
   sexCd: string;
   specialMark: string;
   weight: string;
+}
+
+export interface TotalCount {
+  totalCount: string | number | boolean;
 }

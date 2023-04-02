@@ -9,7 +9,7 @@ const initialState: SidoState = {
 };
 
 const sidoSlice = createSlice({
-  name: 'neuterYn',
+  name: 'sido',
   initialState,
   reducers: {
     setSido: (state, action) => {

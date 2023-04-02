@@ -13,7 +13,7 @@ export const store = configureStore({
     sidoAPI: apiSidoSlice,
     neuterYn: neuterYnSlice,
     kind: kindSlice,
-    sido: sidoSlice
+    sido: sidoSlice,
   },
 });
 
