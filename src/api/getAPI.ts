@@ -53,12 +53,22 @@ export const getAnimals = async (
   if (resultKind) {
     queryParams +=
       '&' + encodeURIComponent('upkind') + '=' + encodeURIComponent(resultKind);
+  } else {
+    queryParams +=
+      '&' + encodeURIComponent('upkind') + '=' + encodeURIComponent('417000');
   }
 
   if (resultSido) {
     queryParams +=
       '&' + encodeURIComponent('upr_cd') + '=' + encodeURIComponent(resultSido);
+  } else {
+    queryParams +=
+      '&' + encodeURIComponent('upr_cd') + '=' + encodeURIComponent('6110000');
   }
+
+  queryParams +=
+    '&' + encodeURIComponent('state') + '=' + encodeURIComponent('notice'); /**/
+
   queryParams +=
     '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
 
@@ -66,7 +76,7 @@ export const getAnimals = async (
     '&' +
     encodeURIComponent('numOfRows') +
     '=' +
-    encodeURIComponent('100'); /**/
+    encodeURIComponent('999'); /**/
 
   queryParams +=
     '&' + encodeURIComponent('_type') + '=' + encodeURIComponent('json'); /**/
