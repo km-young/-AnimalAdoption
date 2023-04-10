@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useAppSelector} from '@/hooks/reduxHooks';
 import axios from 'axios';
 import {Animals, TotalCount} from '../../type';
-const BASE_URL = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc'; /*URL*/
+const BASE_URL = 'https://apis.data.go.kr/1543061/abandonmentPublicSrvc'; /*URL*/
 const encoding = process.env.NEXT_PUBLIC_ANIMALS_KEY;
 
 export const getSido = async () => {

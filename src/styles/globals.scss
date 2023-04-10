@@ -10,12 +10,15 @@ body {
     padding: 0;
     box-sizing: border-box;
   }
+  p,span,strong,h1,h2,h3,h4,h5,h6 {
+    letter-spacing: -1px;
+  }
 }
 
 /* 모바일 */
 @media only screen and (min-width: $mobile-width) {
   body {
-    font-size: 15px;
+    font-size: 13px;
   }
 
 }

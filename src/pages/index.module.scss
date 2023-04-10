@@ -9,7 +9,7 @@
 }
 
 .item_box {
-  min-width: 26rem;
+  min-width: 22rem;
   display: flex;
   cursor: pointer;
   justify-content: center;
@@ -22,6 +22,11 @@
     box-shadow: 1px 1px 5px 1px rgb(0,0,0,0.5);
   }
 }
+
+.img_box {
+  width: 150px;
+  height: 150px;
+}
 .content {
   width: 21rem;
   padding-left: 1.5rem;
@@ -30,6 +35,10 @@
 
 .flex {
   display: flex;
+
+  p{
+    font-weight: 300;
+  }
 }
 
 .position {

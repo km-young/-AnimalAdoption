@@ -97,9 +97,10 @@ export default function Home() {
     return daysLeft;
   };
 
+  /**발견장소 길어지면 ... 추가 */
   const truncate = (str: string): string => {
-    if (str.length > 13) {
-      return str.substring(0, 13) + '...';
+    if (str.length > 10) {
+      return str.substring(0, 10) + '...';
     } else {
       return str;
     }
@@ -131,12 +132,14 @@ export default function Home() {
 
         return (
           <div className={style.item_box} key={uuid}>
-            <Image
-              src={item.popfile}
-              alt={item.kindCd}
-              width={150}
-              height={150}
-            />
+            <div className={style.img_box}>
+              <Image
+                src={item.popfile}
+                alt={item.kindCd}
+                width={150}
+                height={150}
+              />
+            </div>
 
             <div className={style.content}>
               <Like item={item} />
@@ -147,27 +150,27 @@ export default function Home() {
               </div>
               <div className={style.position}>
                 <div className={style.flex}>
-                  <h4>품종:</h4>
+                  <h4>[품종]</h4>
                   <p>{removeKind(item.kindCd)}</p>
                 </div>
                 <div className={style.flex}>
-                  <h4>나이:</h4>
+                  <h4>[나이]</h4>
                   <p>{removeParentheses(item.age)}</p>
                 </div>
                 <div className={style.flex}>
-                  <h4>몸무게:</h4>
+                  <h4>[몸무게]</h4>
                   <p>{removeParentheses(item.weight)}</p>
                 </div>
                 <div className={style.flex}>
-                  <h4>성별:</h4>
+                  <h4>[성별]</h4>
                   <p>{getGenderString(item.sexCd)}</p>
                 </div>
                 <div className={style.flex}>
-                  <h4>중성화:</h4>
+                  <h4>[중성화]</h4>
                   <p>{neuterText(item.neuterYn)}</p>
                 </div>
                 <div className={style.flex}>
-                  <h4>발견장소:</h4>
+                  <h4>[발견장소]</h4>
                   <p>{truncate(item.happenPlace)}</p>
                 </div>
               </div>
