@@ -84,7 +84,6 @@ export const getAnimals = async (
   const response = await axios.get(
     BASE_URL + '/abandonmentPublic' + queryParams
   );
-  console.log('response.data: ', response.data);
 
   return response.data;
 };

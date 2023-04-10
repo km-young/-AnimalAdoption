@@ -4,6 +4,7 @@ import {RxHamburgerMenu} from 'react-icons/rx';
 import Nav from '../select/Selects';
 import {useAppSelector, useAppDispatch} from '../../hooks/reduxHooks';
 import {isNavModal} from '../../redux/slice/navModalSlice';
+import Menu from './Menu';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const Header = () => {
           className={style.icon}
           onClick={() => dispatch(isNavModal())}
         />
+        <Menu />
       </div>
     </div>
   );

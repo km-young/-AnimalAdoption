@@ -15,7 +15,6 @@ const apiSidoSlice = createSlice({
   reducers: {
     setSidoAPI: (state, action) => {
       state.items = action.payload;
-      console.log('state.items: ', state.items);
     },
   },
 });

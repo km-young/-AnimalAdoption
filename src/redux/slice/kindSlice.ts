@@ -14,7 +14,6 @@ const kindSlice = createSlice({
   reducers: {
     setKind: (state, action) => {
       state.kind = action.payload;
-      console.log('state.kind: ', state.kind);
     },
   },
 });

@@ -14,7 +14,6 @@ const sidoSlice = createSlice({
   reducers: {
     setSido: (state, action) => {
       state.sido = action.payload;
-      console.log('state.sido: ', state.sido);
     },
   },
 });

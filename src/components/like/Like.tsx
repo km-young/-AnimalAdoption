@@ -19,7 +19,6 @@ const Like = ({item}: LikeProps) => {
 
   useEffect(() => {
     const likeStatus = localStorage.getItem(item.desertionNo);
-    console.log('likeStatus: ', likeStatus);
 
     if (likeStatus) {
       setIsLike(true);

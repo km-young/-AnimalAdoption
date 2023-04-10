@@ -14,7 +14,6 @@ const neuterYnSlice = createSlice({
   reducers: {
     setNeuterYn: (state, action) => {
       state.neuterYn = action.payload;
-      console.log('state.neuterYn: ', state.neuterYn);
     },
   },
 });

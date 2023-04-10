@@ -13,7 +13,8 @@ const navModalSlice = createSlice({
   },
   reducers: {
     isNavModal: (state: NavModalState) => {
-      state.isOpen = !state.isOpen;      
+      state.isOpen = !state.isOpen;  
+      
     },
 
   },
