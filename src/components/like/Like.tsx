@@ -14,16 +14,18 @@ interface Article {
   like: boolean;
 }
 
-const getArticlesFromLocalStorage = (): Article[] => {
-  const articles = localStorage.getItem('articles');
-  if (articles) {
-    return JSON.parse(articles);
-  }
-  return [];
-};
-
 const Like = ({item}: LikeProps) => {
   const [isLike, setIsLike] = useState(false);
+
+  useEffect(() => {
+    const likeStatus = localStorage.getItem(item.desertionNo);
+    console.log('likeStatus: ', likeStatus);
+
+    if (likeStatus) {
+      setIsLike(true);
+    }
+  }, [item.desertionNo]);
+
   const handleLike = (desertionNo: string) => {
     setIsLike(!isLike);
     if (isLike) {
@@ -40,8 +42,6 @@ const Like = ({item}: LikeProps) => {
   const {mutate: deleteLike} = useMutation((desertionNo: string) =>
     deleteLikeData(desertionNo)
   );
-
-  useEffect(() => {}, [isLike]);
 
   return (
     <>

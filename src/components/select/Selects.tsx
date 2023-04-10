@@ -46,9 +46,7 @@ const Selects = () => {
   }, [dispatch, selectedneuterYn]);
 
   return (
-    <div
-      className={style.container}
-    >
+    <div className={style.container}>
       <div className={style.items}>
         <h3>지역</h3>
         <div className={style.item}>
@@ -58,8 +56,8 @@ const Selects = () => {
             id='sido-select'
             style={{width: '10rem'}}
             onChange={handleSidoChange}
+            defaultValue='6110000'
           >
-            <option value=''>전체</option>
             {sidoAPI.map((item) => (
               <option key={item.orgCd} value={item.orgCd}>
                 {item.orgdownNm}
@@ -76,10 +74,9 @@ const Selects = () => {
             className={style.select}
             name='sido'
             id='sido-select'
-            // style={{width: '35%'}}
             onChange={handleKindChange}
+            defaultValue='417000'
           >
-            <option value=''>전체</option>
             <option value='417000'>강아지</option>
             <option value='422400'>고양이</option>
             <option value='429900'>기타</option>

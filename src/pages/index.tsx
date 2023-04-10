@@ -98,13 +98,25 @@ export default function Home() {
   };
 
   /**발견장소 길어지면 ... 추가 */
-  const truncate = (str: string): string => {
-    if (str.length > 10) {
-      return str.substring(0, 10) + '...';
-    } else {
-      return str;
-    }
-  };
+ const truncate = (str: string): string => {
+   let width = window.innerWidth; // 사용자의 현재 viewport 너비
+
+   if (width <= 499) {
+     if (str.length > 10) {
+       return str.substring(0, 10) + '...';
+     } else {
+       return str;
+     }
+   } else if (width >= 500) {
+     if (str.length > 16) {
+       return str.substring(0, 16) + '...';
+     } else {
+       return str;
+     }
+   } else {
+     return str; // 그 외의 경우는 원래 문자열 그대로 반환
+   }
+ };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -115,71 +127,71 @@ export default function Home() {
   }
 
   return (
-    <div className={style.container}>
-      <Selects />
-      {sortedData?.map((item: Animals) => {
-        const uuid = uuidv4();
-        const daysLeft = getDaysLeft(item.noticeEdt);
+      <div className={style.items_container}>
+        <Selects />
+        {sortedData?.map((item: Animals) => {
+          const uuid = uuidv4();
+          const daysLeft = getDaysLeft(item.noticeEdt);
 
-        const daysLeftStyle = {
-          backgroundColor:
-            daysLeft < 0 ? '#db4e16' : daysLeft < 10 ? '#ff9971' : '#50b77d',
-          padding: '0.3rem 0.5rem',
-          borderRadius: '30px',
-          color: '#fff',
-          display: 'inline',
-        };
+          const daysLeftStyle = {
+            backgroundColor:
+              daysLeft < 1 ? '#db4e16' : daysLeft < 10 ? '#ff9971' : '#50b77d',
+            padding: '0.3rem 0.5rem',
+            borderRadius: '30px',
+            color: '#fff',
+            display: 'inline',
+          };
 
-        return (
-          <div className={style.item_box} key={uuid}>
-            <div className={style.img_box}>
-              <Image
-                src={item.popfile}
-                alt={item.kindCd}
-                width={150}
-                height={150}
-              />
-            </div>
-
-            <div className={style.content}>
-              <Like item={item} />
-              <div style={daysLeftStyle}>
-                <strong>
-                  {daysLeft > 0 ? `공고 마감 ${daysLeft}일 전` : `공고 마감`}
-                </strong>
+          return (
+            <div className={style.item_box} key={uuid}>
+              <div className={style.img_box}>
+                <Image
+                  src={item.popfile}
+                  alt={item.kindCd}
+                  width={150}
+                  height={150}
+                />
               </div>
-              <div className={style.position}>
-                <div className={style.flex}>
-                  <h4>[품종]</h4>
-                  <p>{removeKind(item.kindCd)}</p>
+
+              <div className={style.content}>
+                <Like item={item} />
+                <div style={daysLeftStyle}>
+                  <strong>
+                    {daysLeft > 0 ? `공고 마감 ${daysLeft}일 전` : `보호중`}
+                  </strong>
                 </div>
-                <div className={style.flex}>
-                  <h4>[나이]</h4>
-                  <p>{removeParentheses(item.age)}</p>
-                </div>
-                <div className={style.flex}>
-                  <h4>[몸무게]</h4>
-                  <p>{removeParentheses(item.weight)}</p>
-                </div>
-                <div className={style.flex}>
-                  <h4>[성별]</h4>
-                  <p>{getGenderString(item.sexCd)}</p>
-                </div>
-                <div className={style.flex}>
-                  <h4>[중성화]</h4>
-                  <p>{neuterText(item.neuterYn)}</p>
-                </div>
-                <div className={style.flex}>
-                  <h4>[발견장소]</h4>
-                  <p>{truncate(item.happenPlace)}</p>
+                <div className={style.position}>
+                  <div className={style.flex}>
+                    <h4>[품종]</h4>
+                    <p>{removeKind(item.kindCd)}</p>
+                  </div>
+                  <div className={style.flex}>
+                    <h4>[나이]</h4>
+                    <p>{removeParentheses(item.age)}</p>
+                  </div>
+                  <div className={style.flex}>
+                    <h4>[몸무게]</h4>
+                    <p>{removeParentheses(item.weight)}</p>
+                  </div>
+                  <div className={style.flex}>
+                    <h4>[성별]</h4>
+                    <p>{getGenderString(item.sexCd)}</p>
+                  </div>
+                  <div className={style.flex}>
+                    <h4>[중성화]</h4>
+                    <p>{neuterText(item.neuterYn)}</p>
+                  </div>
+                  <div className={style.flex}>
+                    <h4>[발견장소]</h4>
+                    <p>{truncate(item.happenPlace)}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-      <ScrollTop />
-    </div>
+          );
+        })}
+        <ScrollTop />
+      </div>
   );
 }
 
